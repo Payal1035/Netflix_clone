@@ -20,12 +20,21 @@ export default function Movies() {
 
   useEffect(()=>{
     dispatch(getGenres());
-  },[]);
+  },[dispatch]);
+  
+  //edited
+  // useEffect(() => {
+  //   if(genresLoaded) dispatch(fetchMovies({ type: "movies" }));
+    
+  // },[genresLoaded]);
 
   useEffect(() => {
-    if(genresLoaded) dispatch(fetchMovies({ type: "movies" }));
-    
-  });
+    if (genresLoaded) {
+      dispatch(fetchMovies({ type: "movies" }));
+    }
+  }, [dispatch, genresLoaded]);
+
+  const [user, setUser] = useState(undefined);
 
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -33,7 +42,8 @@ export default function Movies() {
   };
 
   onAuthStateChanged(firebaseAuth, (currentUser)=> {
-   // if (currentUser) navigate("/");
+    if (currentUser) setUser(currentUser.uid);
+    else navigate("/login");
   });
 
   return (
@@ -43,13 +53,13 @@ export default function Movies() {
       </div>
       
       <div className="data">
-        <SelectGenre genres={genres}/>
+        <SelectGenre genres={genres} type="movie"/>
         {
-          movies.lenght ? <Slider movies={movies} /> : <NotAvailable /> 
+          movies.length ? <Slider movies={movies} /> : <NotAvailable /> 
         }
       </div>
     </Container>
-  )
+  );
 }
 
 const Container = styled.div`
