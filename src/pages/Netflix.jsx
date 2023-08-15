@@ -22,8 +22,7 @@ export default function Netflix(){
 
   useEffect(() => {
     if(genresLoaded) dispatch(fetchMovies({ type: "all" }));
-    
-  });
+  }, [dispatch, genresLoaded]);
 
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -57,9 +56,9 @@ export default function Netflix(){
 const Container = styled.div`
   background-color: black;
   .hero{
-    position:relative;
+    position: relative;
     .background-Image{
-      filter: brightness(68%);
+      filter: brightness(60%);
     }
     img{
       height: 100vh;
@@ -87,7 +86,7 @@ const Container = styled.div`
           padding-right: 2.4rem;
           border: none;
           cursor: pointer;
-          transition: 0.3s ease-in-out;
+          transition: 0.2s ease-in-out;
           &:hover{
             opacity: 0.8;
           }

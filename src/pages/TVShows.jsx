@@ -10,7 +10,7 @@ import NotAvailable from '../components/NotAvailable';
 import { onAuthStateChanged } from 'firebase/auth';
 import SelectGenre from '../components/SelectGenre';
 
-export default function Movies() {
+export default function TVShows() {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
@@ -30,7 +30,7 @@ export default function Movies() {
 
   useEffect(() => {
     if (genresLoaded) {
-      dispatch(fetchMovies({ type: "movies" }));
+      dispatch(fetchMovies({ type: "tv" }));
     }
   }, [dispatch, genresLoaded]);
 
@@ -53,7 +53,7 @@ export default function Movies() {
       </div>
       
       <div className="data">
-        <SelectGenre genres={genres} type="movie"/>
+        <SelectGenre genres={genres} type="tv"/>
         {
           movies.length ? <Slider movies={movies} /> : <NotAvailable /> 
         }
